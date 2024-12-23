@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="head"/>
+<body>
+<header class="bg-dark text-white text-center py-3">
+    <h1 th:text="${model.base.title}">Добавить новую платформу</h1>
+    <a th:href="@{/platforms}" class="btn btn-info btn-sm">Назад к списку платформ</a>
+</header>
+<main>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="jumbotron text-center rounded">
+                    <h2>Добавить новую платформу</h2>
+                    <form th:action="@{/platforms/create}" method="post" th:object="${form}">
+                        <div class="mb-3">
+                            <label for="number" class="form-label">Номер платформы</label>
+                            <input type="number" id="number" th:field="*{number}" class="form-control" required>
+                            <small th:if="${#fields.hasErrors('number')}" th:errors="*{number}" class="text-danger"></small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="type" class="form-label">Тип платформы</label>
+                            <input type="text" id="type" th:field="*{type}" class="form-control" required>
+                            <small th:if="${#fields.hasErrors('type')}" th:errors="*{type}" class="text-danger"></small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="statusPlatform" class="form-label">Статус платформы</label>
+                            <input type="text" id="statusPlatform" th:field="*{statusPlatform}" class="form-control" required>
+                            <small th:if="${#fields.hasErrors('statusPlatform')}" th:errors="*{statusPlatform}" class="text-danger"></small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="vokzalId" class="form-label">ID вокзала</label>
+                            <input type="number" id="vokzalId" th:field="*{vokzalId}" class="form-control" required>
+                            <small th:if="${#fields.hasErrors('vokzalId')}" th:errors="*{vokzalId}" class="text-danger"></small>
+                        </div>
+
+                        <div class="mb-3">
+                            <button type="submit" class="btn btn-primary">Создать платформу</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>

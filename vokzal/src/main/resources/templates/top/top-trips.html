@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head">
+    <meta charset="UTF-8">
+    <title th:text="${model.title}"></title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="icon" href="/vok.ico" type="image/x-icon">
+</head>
+<body>
+<header class="bg-dark text-white text-center py-3">
+    <h1>Топ 5 поездок</h1>
+    <h6>в самых быстрых поездах и минимальным временем в пути</h6>
+    <button onclick="window.history.back()" class="btn btn-secondary mt-3">Вернуться</button>
+</header>
+
+<main class="container mt-4">
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th>ID</th>
+            <th>Дата отправления</th>
+            <th>Время отправления</th>
+            <th>Номер поезда</th>
+            <th>Маршрут</th>
+            <th>Статус</th>
+            <th>Скорость</th>
+            <th>Продолжительность поездки</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="trip : ${topTrips}">
+            <td th:text="${trip.id}"></td>
+            <td th:text="${trip.dateDep}"></td>
+            <td th:text="${trip.timeDep}"></td>
+            <td th:text="${trip.numTrain}">
+            <td>
+                <span th:text="${trip.cityFrom}"></span> → <span th:text="${trip.cityTo}"></span>
+            </td>
+            <td th:text="${trip.statusTrip}"></td>
+            <td th:text="${trip.maxSpeedTrain}">
+            <td th:text="${trip.timeInTrip}">
+        </tr>
+        </tbody>
+    </table>
+    <h5>Теперь вы знаете особенности некоторых поездок и сможете грамотнее планировать свои поездки!</h5>
+</main>
+</body>
+</html>

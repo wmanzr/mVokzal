@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="head"/>
+<body>
+<header class="bg-dark text-white text-center py-3">
+    <h1 th:text="${model.base.title}"></h1>
+    <a th:href="@{/trips}" class="btn btn-info btn-sm">Назад к списку путешествий</a>
+</header>
+<main>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="jumbotron text-center rounded">
+                    <h2>Добавить новое путешествие</h2>
+                    <form th:action="@{/trips/create}" method="post" th:object="${form}">
+                        <div class="mb-3">
+                            <label for="dateDep" class="form-label">Дата отправления</label>
+                            <input type="text" id="dateDep" th:field="*{dateDep}" class="form-control" required>
+                            <small th:if="${#fields.hasErrors('dateDep')}" th:errors="*{dateDep}" class="text-danger"></small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="dateArr" class="form-label">Дата прибытия</label>
+                            <input type="text" id="dateArr" th:field="*{dateArr}" class="form-control" required>
+                            <small th:if="${#fields.hasErrors('dateArr')}" th:errors="*{dateArr}" class="text-danger"></small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="statusTrip" class="form-label">Статус путешествия</label>
+                            <input type="text" id="statusTrip" th:field="*{statusTrip}" class="form-control" required>
+                            <small th:if="${#fields.hasErrors('statusTrip')}" th:errors="*{statusTrip}" class="text-danger"></small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="trainId" class="form-label">ID поезда</label>
+                            <input type="number" id="trainId" th:field="*{trainId}" class="form-control" required>
+                            <small th:if="${#fields.hasErrors('trainId')}" th:errors="*{trainId}" class="text-danger"></small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="routeId" class="form-label">ID маршрута</label>
+                            <input type="number" id="routeId" th:field="*{routeId}" class="form-control" required>
+                            <small th:if="${#fields.hasErrors('routeId')}" th:errors="*{routeId}" class="text-danger"></small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="isDelayed" class="form-label">Задержано</label>
+                            <input type="checkbox" id="isDelayed" th:field="*{isDelayed}" class="form-check-input">
+                            <small th:if="${#fields.hasErrors('isDelayed')}" th:errors="*{isDelayed}" class="text-danger"></small>
+                        </div>
+
+                        <div class="mb-3" id="delayTimeContainer" style="display: none;">
+                            <label for="delayTime" class="form-label">Время задержки</label>
+                            <input type="text" id="delayTime" th:field="*{delayTime}" class="form-control" />
+                            <small th:if="${#fields.hasErrors('delayTime')}" th:errors="*{delayTime}" class="text-danger"></small>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Создать путешествие</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+    document.getElementById("isDelayed").addEventListener("change", function() {
+        var delayTimeContainer = document.getElementById("delayTimeContainer");
+        if (this.checked) {
+            delayTimeContainer.style.display = "block";
+            delayTime.value = "00:01";
+        } else {
+            delayTimeContainer.style.display = "none";
+            delayTime.value = "";
+        }
+    });
+
+    if (document.getElementById("isDelayed").checked) {
+        document.getElementById("delayTimeContainer").style.display = "block";
+    }
+</script>
+
+</body>
+</html>

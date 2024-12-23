@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="head"/>
+<body>
+<header class="bg-dark text-white text-center py-3">
+    <h1 th:text="${model.base.title}"></h1>
+    <a th:href="@{/trains}" class="btn btn-info btn-sm">Назад к списку поездов</a>
+</header>
+<main>
+    <section class="container my-4">
+        <div class="jumbotron text-center rounded bg-light py-4">
+            <h2 class="display-4">Информация о поезде</h2>
+        </div>
+
+        <section class="bg-light rounded p-4 mb-4">
+            <ul class="list-unstyled">
+                <li><strong>ID:</strong> <span th:text="${model.train.id}">1</span></li>
+                <li><strong>Номер поезда:</strong> <span th:text="${model.train.number}">1234</span></li>
+                <li><strong>Тип:</strong> <span th:text="${model.train.type}">Скоростной</span></li>
+                <li><strong>Модель:</strong> <span th:text="${model.train.model}">ECR</span></li>
+                <li><strong>Вместимость:</strong> <span th:text="${model.train.capacity}">200</span></li>
+                <li><strong>Статус:</strong> <span th:text="${model.train.statusTrain}">В пути</span></li>
+                <li><strong>Максимальная скорость:</strong> <span th:text="${model.train.maxSpeed}">300</span> км/ч</li>
+            </ul>
+        </section>
+
+        <div class="d-flex justify-content-between">
+            <a class="btn btn-primary" th:href="@{/trains/{id}/edit(id=${model.train.id})}">Редактировать</a>
+            <a class="btn btn-danger" th:href="@{/trains/{id}/delete(id=${model.train.id})}"
+               onclick="return confirm('Вы уверены, что хотите удалить этот поезд?');">Удалить поезд</a>
+        </div>
+    </section>
+</main>
+</body>
+</html>

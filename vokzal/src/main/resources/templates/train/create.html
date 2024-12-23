@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="head"/>
+<body>
+<header class="bg-dark text-white text-center py-3">
+    <h1 th:text="${model.base.title}"></h1>
+    <a th:href="@{/trains}" class="btn btn-info btn-sm">Назад к списку поездов</a>
+</header>
+<main>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="jumbotron text-center rounded">
+                    <h2>Добавить новый поезд</h2>
+                    <form th:action="@{/trains/create}" method="post" th:object="${form}">
+                        <div class="mb-3">
+                            <label for="number" class="form-label">Номер поезда</label>
+                            <input type="number" id="number" th:field="*{number}" class="form-control" required>
+                            <small th:if="${#fields.hasErrors('number')}" th:errors="*{number}" class="text-danger"></small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="type" class="form-label">Тип поезда</label>
+                            <input type="text" id="type" th:field="*{type}" class="form-control" required>
+                            <small th:if="${#fields.hasErrors('type')}" th:errors="*{type}" class="text-danger"></small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="model" class="form-label">Модель</label>
+                            <input type="text" id="model" th:field="*{model}" class="form-control" required>
+                            <small th:if="${#fields.hasErrors('model')}" th:errors="*{model}" class="text-danger"></small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="capacity" class="form-label">Вместимость</label>
+                            <input type="number" id="capacity" th:field="*{capacity}" class="form-control" required>
+                            <small th:if="${#fields.hasErrors('capacity')}" th:errors="*{capacity}" class="text-danger"></small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="statusTrain" class="form-label">Статус поезда</label>
+                            <input type="text" id="statusTrain" th:field="*{statusTrain}" class="form-control" required>
+                            <small th:if="${#fields.hasErrors('statusTrain')}" th:errors="*{statusTrain}" class="text-danger"></small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="maxSpeed" class="form-label">Максимальная скорость</label>
+                            <input type="number" id="maxSpeed" th:field="*{maxSpeed}" class="form-control" required>
+                            <small th:if="${#fields.hasErrors('maxSpeed')}" th:errors="*{maxSpeed}" class="text-danger"></small>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Создать поезд</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>

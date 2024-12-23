@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:fragment="head">
+    <meta charset="UTF-8">
+    <title th:text="${model.title}"></title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="icon" href="/vok.ico" type="image/x-icon">
+</head>
+<body>
+<header class="bg-dark text-white text-center py-3">
+    <h1 th:text="${model.title}"></h1>
+    <a th:href="@{/users/profile}" class="btn btn-info btn-sm">Профиль</a>
+    <div sec:authorize="hasAnyRole('ADMIN', 'MODERATOR')" class="mt-2">
+        <a th:href="@{/admin}" class="btn btn-info btn-sm">Админ. панель</a>
+    </div>
+</header>
+
+<main class="container mt-4">
+    <form th:action="@{/}" method="get" class="mb-4">
+        <div class="input-group">
+            <input type="text" id="vokzalName" name="vokzalName"
+                   th:value="${vokzalName}" class="form-control"
+                   placeholder="Введите название вокзала" required>
+            <div class="input-group-append">
+                <button type="submit" class="btn btn-primary">Поиск</button>
+            </div>
+        </div>
+    </form>
+
+    <div th:if="${stationLoad}" class="mt-4">
+        <h2>Загруженность вокзала:</h2>
+        <p>Загруженность составляет: <span th:text="${stationLoad}"></span>%</p>
+    </div>
+
+    <div th:if="${upcomingTrips}" class="mt-4">
+        <h2>Ближайшие поездки:</h2>
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>Дата отправления</th>
+                <th>Время отправления</th>
+                <th>Статус</th>
+                <th>Номер поезда</th>
+                <th>Маршрут</th>
+                <th>Задержка</th>
+                <th>Время задержки</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="trip : ${upcomingTrips}">
+                <td th:text="${trip.id}"></td>
+                <td th:text="${trip.dateDep}"></td>
+                <td th:text="${trip.timeDep}"></td>
+                <td th:text="${trip.statusTrip}"></td>
+                <td th:text="${trip.trainId}"></td>
+                <td>
+                    <span th:text="${trip.cityFrom}"></span> → <span th:text="${trip.cityTo}"></span>
+                </td>
+                <td th:text="${trip.isDelayed} ? 'Да' : 'Нет'"></td>
+                <td th:text="${trip.delayTime}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="mt-4 text-center">
+        <a th:href="@{/canceled-trips(vokzalName=${vokzalName})}" class="btn btn-secondary">
+            Посмотреть альтернативные поездки
+        </a>
+
+        <a th:href="@{/top/vokzals}" class="btn btn-secondary">
+            Посмотреть топ вокзалов
+        </a>
+
+        <a th:href="@{/top/trips}" class="btn btn-secondary">
+            Посмотреть топ поездок
+        </a>
+
+        <div sec:authorize="hasAnyRole('USER')" class="mt-4">
+            <a th:href="@{/appeals/create}" class="btn btn-secondary">Написать обращение</a>
+        </div>
+
+        <div sec:authorize="hasAnyRole('USER')" class="mt-4">
+            <a th:href="@{/appeals/my-list}" class="btn btn-secondary">Посмотреть мои обращения</a>
+        </div>
+    </div>
+</main>
+</body>
+</html>

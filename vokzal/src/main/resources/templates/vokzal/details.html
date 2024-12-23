@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="head"/>
+<body>
+<header class="bg-dark text-white text-center py-3">
+    <h1 th:text="${model.base.title}"></h1>
+    <a th:href="@{/vokzals}" class="btn btn-info btn-sm">Назад к списку вокзалов</a>
+</header>
+<main>
+    <section class="container my-4">
+        <div class="jumbotron text-center rounded bg-light py-4">
+            <h2 class="display-4">Информация о вокзале</h2>
+        </div>
+
+        <section class="bg-light rounded p-4 mb-4">
+            <ul class="list-unstyled">
+                <li><strong>ID:</strong> <span th:text="${model.vokzal.id}">1</span></li>
+                <li><strong>Название:</strong> <span th:text="${model.vokzal.name}">Вокзал</span></li>
+                <li><strong>Город:</strong> <span th:text="${model.vokzal.city}">Москва</span></li>
+                <li><strong>Вместимость:</strong> <span th:text="${model.vokzal.capacity}">200</span></li>
+                <li th:if="${model.vokzal.del}">
+                    <strong class="text-warning">Удален!</strong>
+                </li>
+            </ul>
+        </section>
+
+        <div class="d-flex justify-content-between">
+            <a class="btn btn-primary" th:href="@{/vokzals/{id}/edit(id=${model.vokzal.id})}">Редактировать</a>
+            <a class="btn btn-danger" th:href="@{/vokzals/{id}/delete(id=${model.vokzal.id})}"
+               onclick="return confirm('Вы уверены, что хотите удалить этот вокзал?');">Удалить вокзал</a>
+        </div>
+    </section>
+</main>
+</body>
+</html>

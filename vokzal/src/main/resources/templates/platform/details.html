@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="head"/>
+<body>
+<header class="bg-dark text-white text-center py-3">
+    <h1 th:text="${model.base.title}"></h1>
+    <a th:href="@{/platforms}" class="btn btn-info btn-sm">Назад к списку платформ</a>
+</header>
+<main>
+    <section class="container my-4">
+        <div class="jumbotron text-center rounded bg-light py-4">
+            <h2 class="display-4">Информация о платформе</h2>
+        </div>
+
+        <section class="bg-light rounded p-4 mb-4">
+            <ul class="list-unstyled">
+                <li><strong>ID:</strong> <span th:text="${model.platform.id}">1</span></li>
+                <li><strong>Номер платформы:</strong> <span th:text="${model.platform.number}">5</span></li>
+                <li><strong>Тип платформы:</strong> <span th:text="${model.platform.type}">Тип</span></li>
+                <li><strong>Статус платформы:</strong> <span th:text="${model.platform.statusPlatform}">Активна</span></li>
+                <li><strong>ID вокзала:</strong> <span th:text="${model.platform.vokzalId}">10</span></li>
+            </ul>
+        </section>
+
+        <div class="d-flex justify-content-between">
+            <a class="btn btn-primary" th:href="@{/platforms/{id}/edit(id=${model.platform.id})}">Редактировать</a>
+            <a class="btn btn-danger" th:href="@{/platforms/{id}/delete(id=${model.platform.id})}"
+               onclick="return confirm('Вы уверены, что хотите удалить эту платформу?');">Удалить платформу</a>
+        </div>
+    </section>
+</main>
+</body>
+</html>

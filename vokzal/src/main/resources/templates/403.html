@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head">
+    <meta charset="UTF-8">
+    <title>Ошибка доступа</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="icon" href="/vok.ico" type="image/x-icon">
+</head>
+<body>
+<div class="container text-center mt-5">
+    <div class="alert alert-danger">
+        <h1>Доступ запрещен</h1>
+        <p>У вас нет прав для доступа к этой странице.</p>
+    </div>
+    <button onclick="window.history.back()" class="btn btn-secondary mt-3">Назад</button>
+</div>
+</body>
+</html>

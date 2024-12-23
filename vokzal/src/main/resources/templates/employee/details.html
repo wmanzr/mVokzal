@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="head"/>
+<body>
+<header class="bg-dark text-white text-center py-3">
+    <h1 th:text="${model.base.title}"></h1>
+    <a th:href="@{/employees}" class="btn btn-info btn-sm">Назад к списку сотрудников</a>
+</header>
+<main>
+    <section class="container my-4">
+        <div class="jumbotron text-center rounded bg-light py-4">
+            <h2 class="display-4">Информация о сотруднике</h2>
+        </div>
+
+        <section class="bg-light rounded p-4 mb-4">
+            <ul class="list-unstyled">
+                <li><strong>ID:</strong> <span th:text="${model.employee.id}">1</span></li>
+                <li><strong>Логин:</strong> <span th:text="${model.employee.login}">username</span></li>
+                <li><strong>Должность:</strong> <span th:text="${model.employee.post}">Должность</span></li>
+                <li><strong>Стаж:</strong> <span th:text="${model.employee.experience}">5</span> лет</li>
+                <li><strong>ID поезда:</strong> <span th:text="${model.employee.trainId}">123</span></li>
+                <li th:if="${model.employee.del}">
+                    <strong class="text-warning">Удален!</strong>
+                </li>
+            </ul>
+        </section>
+
+        <div class="d-flex justify-content-between">
+            <a class="btn btn-primary" th:href="@{/employees/{id}/edit(id=${model.employee.id})}">Редактировать</a>
+            <a class="btn btn-danger" th:href="@{/employees/{id}/delete(id=${model.employee.id})}"
+               onclick="return confirm('Вы уверены, что хотите удалить этого сотрудника?');">Удалить сотрудника</a>
+        </div>
+    </section>
+</main>
+</body>
+</html>

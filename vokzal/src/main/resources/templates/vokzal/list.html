@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="head"/>
+<body>
+<header class="bg-dark text-white text-center py-3">
+    <h1 th:text="${model.base.title}"></h1>
+    <a th:href="@{/admin}" class="btn btn-info btn-sm">Админ. панель</a>
+    <a th:href="@{/vokzals/create}" class="btn btn-success mt-2">Создать новый вокзал</a>
+</header>
+
+<main class="container mt-4">
+    <form th:action="@{/vokzals}" method="get" class="mb-4">
+        <div class="input-group">
+            <input type="text" id="search" name="searchTerm" th:value="${form.searchTerm}" class="form-control" placeholder="Поиск по городу">
+            <button type="submit" class="btn btn-primary">Искать</button>
+        </div>
+    </form>
+
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th>ID</th>
+            <th>Название</th>
+            <th>Город</th>
+            <th>Вместимость</th>
+            <th>Действия</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="vokzal : ${model.vokzals}">
+            <td th:text="${vokzal.id}"></td>
+            <td th:text="${vokzal.name}"></td>
+            <td th:text="${vokzal.city}"></td>
+            <td th:text="${vokzal.capacity}"></td>
+            <td>
+<!--                <a th:href="@{/vokzals/{id}(id=${vokzal.id})}" class="btn btn-info btn-sm">Детали</a>-->
+                <a th:href="@{/vokzals/{id}/edit(id=${vokzal.id})}" class="btn btn-warning btn-sm">Редактировать</a>
+                <a class="btn btn-danger" th:href="@{/vokzals/{id}/delete(id=${vokzal.id})}"
+                   onclick="return confirm('Вы уверены, что хотите удалить этот вокзал?');">Удалить</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <nav th:if="${model.totalPages > 1}" aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            <li th:each="pageNumber : ${#numbers.sequence(1, model.totalPages)}" class="page-item"
+                th:classappend="${pageNumber == form.page} ? 'active'">
+                <a class="page-link"
+                   th:href="@{/vokzals(page=${pageNumber}, size=${form.size}, searchTerm=${form.searchTerm})}"
+                   th:text="${pageNumber}">1</a>
+            </li>
+        </ul>
+    </nav>
+</main>
+</body>
+</html>

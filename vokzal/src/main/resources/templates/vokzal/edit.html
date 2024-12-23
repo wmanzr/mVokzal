@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="head"/>
+<body class="d-flex flex-column h-100">
+<header class="bg-dark text-white text-center py-3">
+    <h1 th:text="${model.base.title}"></h1>
+    <a th:href="@{/vokzals}" class="btn btn-info btn-sm">Назад к списку вокзалов</a>
+</header>
+
+<main class="flex-shrink-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <div class="jumbotron text-center rounded">
+                    <h2>Редактировать данные вокзала</h2>
+                    <form th:action="@{/vokzals/{id}/edit(id=${form.id})}" method="post" th:object="${form}">
+                        <input type="hidden" th:field="*{id}" class="form-control" />
+
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Название вокзала</label>
+                            <input type="text" id="name" th:field="*{name}" class="form-control" required />
+                            <small th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="city" class="form-label">Город</label>
+                            <input type="text" id="city" th:field="*{city}" class="form-control" required />
+                            <small th:if="${#fields.hasErrors('city')}" th:errors="*{city}" class="text-danger"></small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="capacity" class="form-label">Вместимость</label>
+                            <input type="number" id="capacity" th:field="*{capacity}" class="form-control" required />
+                            <small th:if="${#fields.hasErrors('capacity')}" th:errors="*{capacity}" class="text-danger"></small>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Сохранить</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>

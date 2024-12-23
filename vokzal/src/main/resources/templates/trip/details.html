@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="head"/>
+<body>
+<header class="bg-dark text-white text-center py-3">
+    <h1 th:text="${model.base.title}"></h1>
+    <a th:href="@{/trips}" class="btn btn-info btn-sm">Назад к списку путешествий</a>
+</header>
+<main>
+    <section class="container my-4">
+        <div class="jumbotron text-center rounded bg-light py-4">
+            <h2 class="display-4">Информация о путешествии</h2>
+        </div>
+
+        <section class="bg-light rounded p-4 mb-4">
+            <ul class="list-unstyled">
+                <li><strong>ID:</strong> <span th:text="${model.trip.id}">1</span></li>
+                <li><strong>Дата отправления:</strong> <span th:text="${model.trip.dateDep}"></span></li>
+                <li><strong>Дата прибытия:</strong> <span th:text="${model.trip.dateArr}"></span></li>
+                <li><strong>Статус путешествия:</strong> <span th:text="${model.trip.statusTrip}"></span></li>
+                <li><strong>ID поезда:</strong> <span th:text="${model.trip.trainId}"></span></li>
+                <li><strong>ID маршрута:</strong> <span th:text="${model.trip.routeId}"></span></li>
+                <li><strong>Задержано:</strong> <span th:text="${model.trip.isDelayed}"></span></li>
+                <li><strong>Время задержки:</strong> <span th:text="${model.trip.delayTime}"></span></li>
+            </ul>
+        </section>
+
+        <div class="d-flex justify-content-between">
+            <a class="btn btn-primary" th:href="@{/trips/{id}/edit(id=${model.trip.id})}">Редактировать</a>
+            <a class="btn btn-danger" th:href="@{/trips/{id}/delete(id=${model.trip.id})}"
+               onclick="return confirm('Вы уверены, что хотите удалить это путешествие?');">Удалить</a>
+        </div>
+    </section>
+</main>
+</body>
+</html>

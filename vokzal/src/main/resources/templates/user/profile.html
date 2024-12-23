@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:fragment="head">
+    <meta charset="UTF-8">
+    <title>Профиль</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="icon" href="/vok.ico" type="image/x-icon">
+</head>
+<body class="d-flex flex-column h-100">
+<header class="bg-dark text-white py-2">
+    <div class="container">
+        <div class="d-flex justify-content-between">
+            <h2>Ваш профиль</h2>
+            <form action="/users/logout" method="post">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                <div class="container">
+                <a th:href="@{/}" class="btn btn-info btn-sm">Вернуться на главную</a>
+                <button type="submit" class="btn btn-danger">Выйти</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</header>
+
+<main class="flex-shrink-0 py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="card shadow-lg border-0">
+                    <div class="card-header bg-primary text-white text-center">
+                        <h3>Профиль пользователя</h3>
+                    </div>
+                    <div class="card-body row">
+                        <div class="col-md-6" th:object="${user}">
+                            <h5 class="mb-4">Информация о пользователе</h5>
+                            <p><strong>Полное имя:</strong> <span th:text="*{fullName}"></span></p>
+                            <p><strong>Имя пользователя:</strong> <span th:text="*{username}"></span></p>
+                            <p><strong>Возраст:</strong> <span th:text="*{age}"></span></p>
+                            <p><strong>Email:</strong> <span th:text="*{email}"></span></p>
+                            <p><strong>Роли:</strong>
+                                <span sec:authentication="principal.authorities"></span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>

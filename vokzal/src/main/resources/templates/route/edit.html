@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="head"/>
+<body class="d-flex flex-column h-100">
+<header class="bg-dark text-white text-center py-3">
+    <h1 th:text="${model.base.title}"></h1>
+    <a th:href="@{/routes}" class="btn btn-info btn-sm">Назад к списку маршрутов</a>
+</header>
+
+<main class="flex-shrink-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <div class="jumbotron text-center rounded">
+                    <h2>Редактировать маршрут</h2>
+                    <form th:action="@{/routes/{id}/edit(id=${form.id})}" method="post" th:object="${form}">
+                        <input type="hidden" th:field="*{id}" class="form-control" />
+
+                        <div class="mb-3">
+                            <label for="timeDep" class="form-label">Время отправления</label>
+                            <input type="text" id="timeDep" th:field="*{timeDep}" class="form-control" required />
+                            <small th:if="${#fields.hasErrors('timeDep')}" th:errors="*{timeDep}" class="text-danger"></small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="timeArr" class="form-label">Время прибытия</label>
+                            <input type="text" id="timeArr" th:field="*{timeArr}" class="form-control" required />
+                            <small th:if="${#fields.hasErrors('timeArr')}" th:errors="*{timeArr}" class="text-danger"></small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="depPlId" class="form-label">ID платформы отправления</label>
+                            <input type="number" id="depPlId" th:field="*{depPlId}" class="form-control" />
+                            <small th:if="${#fields.hasErrors('depPlId')}" th:errors="*{depPlId}" class="text-danger"></small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="arrPlId" class="form-label">ID платформы прибытия</label>
+                            <input type="number" id="arrPlId" th:field="*{arrPlId}" class="form-control" />
+                            <small th:if="${#fields.hasErrors('arrPlId')}" th:errors="*{arrPlId}" class="text-danger"></small>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Сохранить</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="head"/>
+<body class="d-flex flex-column h-100">
+<header class="bg-dark text-white text-center py-3">
+    <h1 th:text="${model.base.title}"></h1>
+    <a th:href="@{/appeals/admin-list}" class="btn btn-info btn-sm">Назад к обращениям</a>
+</header>
+<main class="container">
+    <div class="jumbotron text-center">
+        <h2>Ответ на обращение</h2>
+    </div>
+    <form th:action="@{/appeals/{id}/edit(id=${form.id})}" method="post" th:object="${form}">
+        <div class="mb-3">
+            <label for="header" class="form-label">Заголовок</label>
+            <input type="text" id="header" th:field="*{header}" class="form-control" readonly />
+        </div>
+        <div class="mb-3">
+            <label for="question" class="form-label">Вопрос</label>
+            <textarea id="question" th:field="*{question}" class="form-control" rows="2" readonly></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="feedback" class="form-label">Оценка</label>
+            <input type="number" id="feedback" th:field="*{feedback}" class="form-control" readonly />
+        </div>
+        <div class="mb-3">
+            <label for="dateStart" class="form-label">Дата создания обращения</label>
+            <input type="text" id="dateStart" th:field="*{dateStart}" class="form-control" readonly />
+        </div>
+        <div class="mb-3">
+            <label for="userId" class="form-label">ID пользователя</label>
+            <input type="text" id="userId" th:field="*{userId}" class="form-control" readonly />
+        </div>
+        <div class="mb-3">
+            <label for="answer" class="form-label">Ответ</label>
+            <textarea id="answer" th:field="*{answer}" class="form-control" rows="4" required></textarea>
+            <small th:if="${#fields.hasErrors('answer')}" th:errors="*{answer}" class="text-danger"></small>
+        </div>
+
+        <div class="mb-3">
+            <button type="submit" class="btn btn-primary">Отправить</button>
+        </div>
+    </form>
+</main>
+</body>
+</html>
